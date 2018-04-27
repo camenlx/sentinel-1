@@ -25,7 +25,7 @@ Update system packages and ensure virtualenv is installed:
 
 Clone the Sentinel repo and install Python dependencies.
 
-    $ git clone https://github.com/absolutecrypto/sentinel.git && cd sentinel
+    $ git clone https://github.com/absolute-community/sentinel.git && cd sentinel
     $ virtualenv ./venv
     $ ./venv/bin/pip install -r requirements.txt
 
