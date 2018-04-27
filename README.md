@@ -53,6 +53,12 @@ An alternative (non-default) path to the `absolute.conf` file can be specified i
 
     absolute_conf=/path/to/absolute.conf
 
+## Building
+
+Install pyinstaller `pip install pyinstaller`
+
+Generate output EXE/ELF: `pyinstaller --onefile --paths=lib/ main.py`
+
 ## Troubleshooting
 
 To view debug output, set the `SENTINEL_DEBUG` environment variable to anything non-zero, then run the script manually:
