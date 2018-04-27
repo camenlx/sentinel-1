@@ -14,3 +14,5 @@ script:
 
   # style guide check
   - find ./lib ./test ./bin -name \*.py -exec pycodestyle --show-source --ignore=E501,E402,E722 {} +
+
+ 
