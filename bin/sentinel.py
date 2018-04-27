@@ -230,7 +230,7 @@ def signal_handler(signum, frame):
     sys.exit(1)
 
 
-def cleanup():
+def cleanup(mutex_key):
     Transient.delete(mutex_key)
 
 
@@ -245,12 +245,15 @@ def process_args():
     return args
 
 
-if __name__ == '__main__':
-    atexit.register(cleanup)
+def entrypoint():
+    # ensure another instance of Sentinel pointing at the same config
+    # is not currently running
+    mutex_key = 'SENTINEL_RUNNING_' + config.absolute_conf
+    
+    atexit.register(cleanup, mutex_key)
     signal.signal(signal.SIGINT, signal_handler)
 
-    # ensure another instance of Sentinel is not currently running
-    mutex_key = 'SENTINEL_RUNNING'
+    
     # assume that all processes expire after 'timeout_seconds' seconds
     timeout_seconds = 90
 
@@ -265,3 +268,6 @@ if __name__ == '__main__':
     main()
 
     Transient.delete(mutex_key)
+
+if __name__ == '__main__':
+    entrypoint()

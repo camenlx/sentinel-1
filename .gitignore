@@ -1,0 +1,8 @@
+*.manifest
+*.pyc
+*.spec
+*.log
+sentinel
+build/
+dist/
+database/*.db

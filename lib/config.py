@@ -1,6 +1,7 @@
 """
     Set up defaults and read sentinel.conf
 """
+import argparse
 import sys
 import os
 from absolute_config import AbsoluteConfig
@@ -13,15 +14,46 @@ sentinel_cfg = AbsoluteConfig.tokenize(sentinel_config_file)
 sentinel_version = "1.1.0"
 min_absoluted_proto_version_with_sentinel_ping = 70207
 
+def get_argparse():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--config', type=str, required=False)
+    parser.add_argument('--rpc-port', type=int, required=False)
+    parser.add_argument('--repair', action='store_true', default=False, required=False)
+    parser.add_argument('--sentinel', action='store_true', default=False, required=False)
+    return parser
+
+def get_args():
+    parser = get_argparse()
+
+    try:
+        args = parser.parse_args()
+    except:
+        # We are inside tests 
+        parser.add_argument('folder')
+        args = parser.parse_args()
+
+    return args
 
 def get_absolute_conf():
-    home = os.environ.get('HOME')
+    args = get_args()
 
-    absolute_conf = os.path.join(home, ".absolutecore/absolute.conf")
-    if sys.platform == 'darwin':
-        absolute_conf = os.path.join(home, "Library/Application Support/AbsoluteCore/absolute.conf")
-
-    absolute_conf = sentinel_cfg.get('absolute_conf', absolute_conf)
+    if args.config:
+        absolute_conf = args.config
+    else:
+        home = os.environ.get('HOME')
+        if home is not None:
+            if sys.platform == 'darwin':
+                absolute_conf = os.path.join(home, "Library/Application Support/AbsoluteCore/absolute.conf")
+            else:
+                absolute_conf = os.path.join(home, ".absolutecore/absolute.conf")
+        else:
+            home = os.getenv('APPDATA')
+            if home is not None:
+                absolute_conf = os.path.join(home, "AbsoluteCore\\absolute.conf")
+            else:
+                absolute_conf = 'absolute.conf'
+        
+        absolute_conf = sentinel_cfg.get('absolute_conf', absolute_conf)
 
     return absolute_conf
 
