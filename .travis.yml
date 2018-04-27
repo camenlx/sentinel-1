@@ -3,7 +3,9 @@ python:
   - "2.7"
   - "3.5"
   - "3.6"
-
+before_install:
+  - chmod +x share/travis_setup.sh
+  
 install:
   - pip install -r requirements.txt
   - ./share/travis_setup.sh
