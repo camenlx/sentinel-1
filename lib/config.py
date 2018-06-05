@@ -36,24 +36,31 @@ def get_args():
 
 def get_absolute_conf():
     args = get_args()
-
+    absolute_conf = ''
     if args.config:
         absolute_conf = args.config
     else:
-        home = os.environ.get('HOME')
-        if home is not None:
-            if sys.platform == 'darwin':
-                absolute_conf = os.path.join(home, "Library/Application Support/AbsoluteCore/absolute.conf")
-            else:
-                absolute_conf = os.path.join(home, ".absolutecore/absolute.conf")
-        else:
-            home = os.getenv('APPDATA')
-            if home is not None:
-                absolute_conf = os.path.join(home, "AbsoluteCore\\absolute.conf")
-            else:
-                absolute_conf = 'absolute.conf'
-        
         absolute_conf = sentinel_cfg.get('absolute_conf', absolute_conf)
+        
+        if not os.path.isfile(absolute_conf):
+            home = os.environ.get('HOME')
+            if home is not None:
+                if sys.platform == 'darwin':
+                    absolute_conf = os.path.join(home, "Library/Application Support/AbsoluteCore/absolute.conf")
+                else:
+                    absolute_conf = os.path.join(home, ".absolutecore/absolute.conf")
+            else:
+                home = os.getenv('APPDATA')
+                if home is not None:
+                    absolute_conf = os.path.join(home, "AbsoluteCore\\absolute.conf")
+                else:
+                    absolute_conf = 'absolute.conf'
+        
+        # check if file exist
+        if not os.path.isfile(absolute_conf):
+            absolute_conf = os.path.join(os.getcwd(), 'absolute.conf')
+
+        #absolute_conf = sentinel_cfg.get('absolute_conf', absolute_conf)
 
     return absolute_conf
 
