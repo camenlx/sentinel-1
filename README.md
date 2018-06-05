@@ -25,7 +25,7 @@ Update system packages and ensure virtualenv is installed:
 
 Clone the Sentinel repo and install Python dependencies.
 
-    $ git clone https://github.com/absolutecrypto/sentinel.git && cd sentinel
+    $ git clone https://github.com/absolute-community/sentinel.git && cd sentinel
     $ virtualenv ./venv
     $ ./venv/bin/pip install -r requirements.txt
 
@@ -52,6 +52,12 @@ With all tests passing and crontab setup, Sentinel will stay in sync with absolu
 An alternative (non-default) path to the `absolute.conf` file can be specified in `sentinel.conf`:
 
     absolute_conf=/path/to/absolute.conf
+
+## Building
+
+Install pyinstaller `pip install pyinstaller`
+
+Generate output EXE/ELF: `pyinstaller --onefile --paths=lib/ main.py`
 
 ## Troubleshooting
 
