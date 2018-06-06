@@ -159,7 +159,7 @@ def is_absoluted_port_open(absoluted):
 def main():
     absoluted = AbsoluteDaemon.from_absolute_conf(config.absolute_conf)
     options = process_args()
-    
+
     # check absoluted connectivity
     if not is_absoluted_port_open(absoluted):
         print("Cannot connect to absoluted. Please ensure absoluted is running and the JSONRPC port is open to Sentinel.")
@@ -239,9 +239,8 @@ def process_args():
     parser.add_argument('-b', '--bypass-scheduler',
                         action='store_true',
                         help='Bypass scheduler and sync/vote immediately',
-                        dest='bypass',
-                        default=False, required=False)
-    args = parser.parse_known_args()
+                        dest='bypass')
+    args = parser.parse_args()
 
     return args
 
