@@ -21,7 +21,7 @@ def test_absoluted():
         if line.startswith('testnet=1'):
             network = 'testnet'
             is_testnet = True
-            genesis_hash = u'0000e585b5b736b3a33ae8999fa2d63e036fb42e56ea5b6e5eacf3b473dd4e6'
+            genesis_hash = u'00000de52875a68d7bf6a5bb5ad1b89fd7df4d67a9603669327949923dc74d7e'
 
     creds = AbsoluteConfig.get_rpc_creds(config_text, network)
     absoluted = AbsoluteDaemon(**creds)

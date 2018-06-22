@@ -11,7 +11,8 @@ default_sentinel_config = os.path.normpath(
 )
 sentinel_config_file = os.environ.get('SENTINEL_CONFIG', default_sentinel_config)
 sentinel_cfg = AbsoluteConfig.tokenize(sentinel_config_file)
-sentinel_version = "1.1.0"
+
+sentinel_version = "1.2.0"
 min_absoluted_proto_version_with_sentinel_ping = 70207
 
 def get_argparse():
@@ -28,7 +29,7 @@ def get_args():
     try:
         args = parser.parse_args()
     except:
-        # We are inside tests 
+        # We are inside tests
         parser.add_argument('folder')
         args = parser.parse_args()
 
@@ -40,20 +41,23 @@ def get_absolute_conf():
     if args.config:
         absolute_conf = args.config
     else:
-        home = os.environ.get('HOME')
-        if home is not None:
-            if sys.platform == 'darwin':
-                absolute_conf = os.path.join(home, "Library/Application Support/AbsoluteCore/absolute.conf")
-            else:
-                absolute_conf = os.path.join(home, ".absolutecore/absolute.conf")
-        else:
-            home = os.getenv('APPDATA')
-            if home is not None:
-                absolute_conf = os.path.join(home, "AbsoluteCore\\absolute.conf")
-            else:
-                absolute_conf = 'absolute.conf'
-        
+        absolute_conf = ''
         absolute_conf = sentinel_cfg.get('absolute_conf', absolute_conf)
+        print absolute_conf
+        if not absolute_conf:
+            home = os.environ.get('HOME')
+            if home is not None:
+                if sys.platform == 'darwin':
+                    absolute_conf = os.path.join(home, "Library/Application Support/AbsoluteCore/absolute.conf")
+                else:
+                    absolute_conf = os.path.join(home, ".absolutecore/absolute.conf")
+            else:
+                home = os.getenv('APPDATA')
+                if home is not None:
+                    absolute_conf = os.path.join(home, "AbsoluteCore\\absolute.conf")
+                else:
+                    absolute_conf = 'absolute.conf'
+
 
     return absolute_conf
 

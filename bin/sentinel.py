@@ -235,14 +235,16 @@ def cleanup(mutex_key):
 
 
 def process_args():
+    
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--bypass-scheduler',
                         action='store_true',
                         help='Bypass scheduler and sync/vote immediately',
                         dest='bypass')
-    args = parser.parse_args()
+    option, args = parser.parse_known_args()
+    
 
-    return args
+    return option
 
 
 def entrypoint():
