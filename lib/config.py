@@ -43,7 +43,7 @@ def get_absolute_conf():
     else:
         absolute_conf = ''
         absolute_conf = sentinel_cfg.get('absolute_conf', absolute_conf)
-        print absolute_conf
+        # print absolute_conf
         if not absolute_conf:
             home = os.environ.get('HOME')
             if home is not None:
