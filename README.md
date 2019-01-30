@@ -1,10 +1,10 @@
-# Absolute Sentinel
+# Absolute Sentinel V1.2
 
 An all-powerful toolset for Absolute.
 
-Sentinel is an autonomous agent for persisting, processing and automating Absolute V12.1 governance objects and tasks, and for expanded functions in the upcoming Absolute releases.
+Sentinel is an autonomous agent for persisting, processing and automating Absolute V12.2 governance objects and tasks, and for expanded functions in the upcoming Absolute releases.
 
-Sentinel is implemented as a Python application that binds to a local version 12.1 absoluted instance on each Absolute Masternode.
+Sentinel is implemented as a Python application that binds to a local version 12.2 absoluted instance on each Absolute Masternode.
 
 This guide covers installing Sentinel onto an existing 12.1 Masternode in Ubuntu 14.04 / 16.04.
 
